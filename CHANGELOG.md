@@ -21,6 +21,8 @@ The format is based on [Keep a Changelog].
 
 ### Fixed
 
+- Abort upload won't abort sleep between upload. [`#159`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/159)
+
 ### Security
 
 ## [0.3.12] - 2025-12-20
