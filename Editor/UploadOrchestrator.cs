@@ -173,8 +173,17 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
                     if (!TrySelectNextPlatform(asset)) return;
                 }
 
-                // sleep for a while to avoid overwhelming the server
-                await Task.Delay(asset.sleepMilliseconds);
+                try
+                {
+                    // sleep for a while to avoid overwhelming the server
+                    await Task.Delay(asset.sleepMilliseconds, CancellationToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    Log("Upload cancelled by user. so we are finishing the upload.");
+                    FinishUpload(asset, true);
+                    return;
+                }
 
                 var currentPlatform = Uploader.GetCurrentTargetPlatform();
                 if (currentPlatform != asset.uploadingTargetPlatform)
